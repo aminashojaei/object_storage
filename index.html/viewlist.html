@@ -9,17 +9,66 @@
 </head>
 <body>
     <header class="container-fluid d-flex">
-        <div class="left-side mt-2 d-flex w-50">
+        <div class="header_left_side mt-4 d-flex w-50">
             <div class="d-flex align-items-center">
                 <img class="ps-4" src="../assets/images/blue_Logo.svg" alt="">
                 <h4 class="default_blue bold brand_name mb-0 ps-1">Storage</h4>
             </div>
             <form class="search_bar_container">
-                <input type="text" class="search_input">
-                
+                <input type="text" class="search_input w-100" placeholder="search . . .">
             </form>
         </div>
+        <div class="header_right_side mt-4 d-flex w-50">
+            <div class="upload_btn_container col-2">
+                <button class="upload_btn default_blue_bg">
+                    <img class="pb-1" src="../assets/images/Upload_icon.svg" alt="">
+                </button>
+            </div>
+            <a href="" class="user_avatar_container pe-4">
+                <img class="rounded-circle" src="../assets/images/profile_icon.svg" alt="">
+                <div class="user_avatar_name">
+                    Mitchel
+                </div>
+            </a>
+
+        </div>
     </header>
+    <main class="container-fluid total_object_container very_light mt-3 d-flex flex-column">
+        <div class="data_information d-flex flex-column default mt-3">
+            <h2 class="bold">Objects</h2>
+            <h6 class="light">Total: <span class="medium">12</span><span class="medium">GB</span></h6>
+        </div>
+        <div class="objects_container d-flex">
+            <div class="d-flex flex-column col-3 justify-content-evenly">
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+            </div>
+            <div class="d-flex flex-column col-3 justify-content-evenly">
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+            </div>            
+            <div class="d-flex flex-column col-3 justify-content-evenly">
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+            </div>
+            <div class="d-flex flex-column col-3 justify-content-evenly">
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+                <div class="whole_object_container"></div>
+            </div>
+        </div>
+    </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

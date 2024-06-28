@@ -64,11 +64,17 @@
   {
     color:#A3B2C7;
   }
+  .very_light{
+    background-color: #F2F4F8;
+  }
   .bold{
     font-family: default-semibold;
   }
   .medium{
     font-family: default-medium;
+  }
+  .light{
+    font-family: default-light;
   }
 /* miew */
 .brand_name{
@@ -77,14 +83,69 @@
 .search_input{
   background-image: url(../images/Search_icon.svg);
   background-repeat: no-repeat;
-  background-position: 15px 16px;
+  background-position: 13px 14px;
   background-color: white;
   border-radius: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.01), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
-  height:50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.03), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  height:46px;
   border: none;
   width: 80%;
+  padding-inline-start: 35px;
 }
-.left-side{
-    justify-content: space-between;
+.header_left_side{
+    align-items: center;
+    justify-content:space-between;
+    gap: 20px;
 }
+.search_bar_container{
+  width: 70%;
+}
+.search_input::placeholder{
+  font-family: default-light;
+  font-size: 15px;
+  color:#A3B2C7;
+}
+.upload_btn{
+  border-radius: 40px;
+  width: 100%;
+  height: 46px;
+  border: none;
+}
+.header_right_side{
+  justify-content:flex-end;
+  align-items: center;
+  gap: 5%;
+
+}
+.user_avatar_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user_avatar_name{
+  font-family: default-medium;
+  margin-left: 12px;
+  color: #333F4E;
+}
+.total_object_container{
+  width: 95%;
+  height: 85%;
+  border-radius: 30px;
+}
+.objects_container{
+  height: 80%;
+  width: 95%;
+  align-self: center;
+  margin-bottom: 1.5%;
+}
+.data_information{
+  width: 95%;
+  align-self: center;
+}
+.whole_object_container{
+  border-radius: 12px;
+  background-color: white;
+  width: 95%;
+  height: 15%;
+}
+
