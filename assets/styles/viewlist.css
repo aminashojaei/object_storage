@@ -1,0 +1,90 @@
+/* fonts */
+@font-face {
+    font-family: "default-thin";
+    src: url(../fonts/Poppins-Thin.ttf);}
+  @font-face {
+    font-family: "default-extralight";
+    src: url(../fonts/Poppins-ExtraLight.ttf);}
+  @font-face {
+    font-family: "default-light";
+    src: url(../fonts/Poppins-Light.ttf);}  
+  @font-face {
+    font-family: "default-regular";
+    src: url(../fonts//Poppins-Regular.ttf);}
+  @font-face {
+    font-family: "default-medium";
+    src: url(../fonts/Poppins-Medium.ttf);}
+  @font-face {
+    font-family: "default-bold";
+    src: url(../fonts/Poppins-Bold.ttf);}
+  @font-face {
+    font-family: "default-semibold";
+    src: url(../fonts/Poppins-SemiBold.ttf);}
+  @font-face {
+    font-family: "default-extrabold";
+    src: url(../fonts/Poppins-ExtraBold.ttf);}
+  /* fonts */
+  
+  /* custom settings */
+  body,html{
+    height: 100%;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+  }
+  a {
+    text-decoration: none;
+  }
+  li,
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .default_blue_bg{
+    background-color: #7288FA;
+  }
+  .default_blue{
+    color: #7288FA;
+  }
+  .default_dark{
+    color: #333f4e;
+  }
+  .default_white_bg{
+    background-color: white;
+  }
+  .default_white{
+    color: white;
+  }
+  .default_light
+  {
+    color:#A3B2C7;
+  }
+  .bold{
+    font-family: default-semibold;
+  }
+  .medium{
+    font-family: default-medium;
+  }
+/* miew */
+.brand_name{
+  font-size: 26px;
+}
+.search_input{
+  background-image: url(../images/Search_icon.svg);
+  background-repeat: no-repeat;
+  background-position: 15px 16px;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.01), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+  height:50px;
+  border: none;
+  width: 80%;
+}
+.left-side{
+    justify-content: space-between;
+}
