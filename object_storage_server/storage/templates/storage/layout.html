@@ -1,0 +1,62 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css'%}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'blog/favicon.ico' %}"/>
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Blog</title>
+    {% endif %}
+</head>
+
+<body>
+
+    <div class="container-fluid px-0">
+        <nav class="back-nav">
+            <div>
+                <a class="ml-15 front-nav" href="{% url 'blog-index' %}">Home</a>
+                <a class="ml-15 front-nav" href="{% url 'blog-about' %}">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="flex-right">
+                {% if user.is_authenticated %}
+                    <a class="mr-15 front-nav" href="{% url 'post-create' %}">Create Post</a>
+                    <a class="mr-15 front-nav" href="{% url 'profile' %}">Profile</a>
+                    <a class="mr-15 front-nav" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="mr-15 front-nav" href="{% url 'login' %}">Login</a>
+                    <a class="mr-15 front-nav" href="{% url 'register' %}">Signup</a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

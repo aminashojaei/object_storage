@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>create account</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles/createaccount_defult.css">
+</head>
+<body> 
+  <div class="container_fluid h-100">
+    <div class="row h-100">
+      <aside class="col-5 h-100 default_blue_bg d-flex"><!-- left_aside_blue -->
+        <div class="row-1  logo_container d-flex">
+          <img src="../assets/images/object_storage_Logo.svg" alt="logo">
+          <h4 class="company_name_container">Storage</h4>
+        </div>
+        <div class="row slogan_container d-flex">
+          <p class="slogan_title">Manage your files the best way</p>
+          <p class="slogan_description">Awesome, we've created the perfect place for you to store all your documents.</p>
+        </div>
+        <div class="row-5 d-flex justify-content-center">
+          <img src="../assets/images/Illustration.svg" alt="Illustration" width="70%">
+        </div>
+      </aside>
+      <div class="col-7 h-100 information_container" style="justify-content:space-evenly;"><!-- right_aside_white -->      
+        <div class="row page_function_signup"><!-- page_function_section -->
+          <p class="default_dark">Create Account</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row inputs_container col-8"><!-- input_section -->
+            <div class="d-flex flex-column input_container">
+                <label for="username-label" name="username-label"class="lable_style">Username</label>
+                <input id="username-label" class="input_style" placeholder="Enter your Username" type="text">
+                <p></p>
+            </div>
+            <div class="d-flex flex-column input_container">
+                <label for="email-label" name="email-label"class="lable_style">Email</label>
+                <input id="email-label" class="input_style" placeholder="Enter your Email" type="email"> 
+                <p></p> 
+            </div>
+            <div class="d-flex flex-column input_container ">
+                <label for="password-label1" name="password-label1"class="lable_style">Password</label>
+                <input id="password-label1" class="input_style" placeholder="Enter Password" type="password">
+                <p></p>
+            </div>
+            <div class="d-flex flex-column input_container">
+                <label for="password-label2" name="password-label2"class="lable_style">Password</label>
+                <input id="password-label2" class="input_style" placeholder="Confirm Password" type="password">
+                <p></p>
+            </div>
+            </div>
+            <input  class="default_blue_bg login_btn" type="submit" value="Login"><!-- signup_btn -->
+        </form>
+        <div class="row go_login"><!-- go_login -->
+          <p>Already have an account?
+            <span>
+              <a href="" class="default_blue">Login</a>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

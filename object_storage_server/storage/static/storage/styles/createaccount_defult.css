@@ -1,0 +1,215 @@
+/* fonts */
+@font-face {
+  font-family: "default-thin";
+  src: url(../fonts/Poppins-Thin.ttf);}
+@font-face {
+  font-family: "default-extralight";
+  src: url(../fonts/Poppins-ExtraLight.ttf);}
+@font-face {
+  font-family: "default-light";
+  src: url(../fonts/Poppins-Light.ttf);}  
+@font-face {
+  font-family: "default-regular";
+  src: url(../fonts//Poppins-Regular.ttf);}
+@font-face {
+  font-family: "default-medium";
+  src: url(../fonts/Poppins-Medium.ttf);}
+@font-face {
+  font-family: "default-bold";
+  src: url(../fonts/Poppins-Bold.ttf);}
+@font-face {
+  font-family: "default-semibold";
+  src: url(../fonts/Poppins-SemiBold.ttf);}
+@font-face {
+  font-family: "default-extrabold";
+  src: url(../fonts/Poppins-ExtraBold.ttf);}
+/* fonts */
+
+/* custom settings */
+body,html{
+  height: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+li,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.default_blue_bg{
+  background-color: #7288FA;
+}
+.default_blue{
+  color: #7288FA;
+}
+.default_dark{
+  color: #333f4e;
+}
+.default_white_bg{
+  background-color: white;
+}
+.default_white{
+  color: white;
+}
+.default_light
+{
+  color:#A3B2C7;
+}
+.bold{
+  font-family: default-semibold;
+}
+/* custom settings */
+.company_name_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  font-size: 34px;
+  font-family: default-medium;
+  color: white;
+}
+.slogan_title{
+  font-size: 46px;
+  font-family: default-bold;
+  color: white;
+  line-height: 48px;
+}
+.slogan_description{
+  font-size: 16px;
+  color: white;
+  font-family: default-light;
+  line-height: 20px;
+  width:90%;
+}
+.slogan_container{
+  width: 80%;
+  gap: 5%;
+}
+.logo_container{
+  position:relative;
+  left: -19%;
+}
+aside{
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px 0px 0px 30px;
+}
+.input_style::placeholder{
+  font-size: 14px;
+  font-family: default-medium;
+  color:#A3B2C7;
+}
+.input_style{
+  border: none;
+}
+.lable_style{
+  font-size: 14px;
+  font-family: default-light;
+  color: #333f4e;
+}
+.input_container{
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  height:60px;
+}
+.page_function_signup{
+  position:relative;
+  left: -23%;
+  font-size: 46px;
+  font-family: default-bold;
+}
+.inputs_container {
+  gap: 25px;
+}
+.information_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signup_btn{
+  border: none;
+  border-radius:41px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: default-medium;
+  color: white;
+}
+div.go_login{
+  font-family: default-regular;
+  font-size: 14px;
+}
+.page_function_signup{
+  position:relative;
+  left: -10%;
+}
+.input_problem{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  height:60px;
+  border: 0.5px solid rgba(252, 86, 86, 0.767); 
+}
+.inputs_container > div > p{
+  font-size: 13px;
+  font-family: default-light;
+  color: rgba(252, 86, 86, 0.959);
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+/* verification_page */
+.verification_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 27px;
+}
+.check_email{
+  font-size: 46px;
+  font-family: default-bold;
+}
+.verification_container > div :nth-child(3){
+  font-family: default-regular;
+}
+/* verification_page */ 
+/* login_page */ 
+.login_btn{
+  border: none;
+  border-radius:41px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: default-medium;
+  color: white;
+  width: 65%;
+}
+.page_function_login{
+  position:relative;
+  left: -23%;
+  font-size: 46px;
+  font-family: default-bold;
+}
+/* login_page */ 
+
