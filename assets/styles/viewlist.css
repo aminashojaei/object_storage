@@ -47,6 +47,10 @@ html {
 a {
   text-decoration: none;
 }
+button{
+  border: none;
+  background-color: inherit;
+}
 li,
 ol,
 ul {
@@ -207,7 +211,6 @@ p.file-name {
   justify-content: center;
   background-color: inherit;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.03), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-
 }
 .modal-header{
   justify-content : space-between;
@@ -281,4 +284,76 @@ p.file-name {
   border-radius: 30px;
   color: white;
   font-family: default-medium;
+}
+.popup{
+  width: 337px;
+  height: 210px;
+  background-color: white;
+  border-radius: 40px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+.popup .popup-item{
+  width: 88%;
+  height: 90%;
+}
+.share-img{
+  background-color: rgba(249, 171, 114, 0.1);
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trash-img{
+  background-color: rgba(255, 116, 116, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.download-img{
+  background-color: rgba(114, 137, 250, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trash-container{
+  font-family: default-light;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(51, 63, 78, 1);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.download-container{
+  font-family: default-light;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(51, 63, 78, 1);
+  border-bottom:#f2f4f8 solid 1px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.share-container{
+  font-family: default-light;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(51, 63, 78, 1);
+  border-bottom:#f2f4f8 solid 1px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 100%;
 }
