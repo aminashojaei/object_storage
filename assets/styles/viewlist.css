@@ -212,17 +212,20 @@ p.file-name {
 .modal-header{
   justify-content : space-between;
   border: none;
+  position: sticky;
 }
 .modal-content{
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px 0px inset, rgba(17, 17, 26, 0.05) 0px 8px 32px 0px;
 }
 .modal-footer{
   border: none;
+  background-color: white;
 }
 .content-container{
   justify-content: start;
   align-items: center;
   gap: 12px;
+  margin-bottom: 20px;
 }
 .form-check-input{
   width: 20px;
@@ -236,4 +239,46 @@ p.file-name {
 }
 .form-check-label{
   gap: 12px;
+}
+.image-stack-container {
+  position: relative;
+  width: 66%;
+  height: 46px; 
+  justify-content: space-between;
+}
+.overlap-img {
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.overlap-img:nth-child(1) {
+  left: 0;
+  z-index: 3;
+}
+.overlap-img:nth-child(2) {
+  left: 7%;
+  z-index: 2;
+}
+.overlap-img:nth-child(3) {
+  left: 14%;
+  z-index: 1;
+}
+.bottom-sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
+}
+.top-sticky{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+.viewList-btn{
+  border: none;
+  background-color: #7288fa;
+  width: 30%;
+  height: 46px;
+  border-radius: 30px;
+  color: white;
+  font-family: default-medium;
 }
