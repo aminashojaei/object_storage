@@ -1,0 +1,40 @@
+{% extends "storage/layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container_fluid h-100">  <!-- left_aside_blue -->
+    <div class="row h-100">
+        <aside class="col-5 h-100 default_blue_bg d-flex">
+        <div class="row-1  logo_container d-flex">
+            <img src="{% static 'storage/images/object_storage_Logo.svg'%}" alt="logo">
+            <h4 class="company_name_container">Storage</h4>
+        </div>
+        <div class="row slogan_container d-flex">
+            <p class="slogan_title">Manage your files the best way</p>
+            <p class="slogan_description">Awesome, we've created the perfect place for you to store all your documents.</p>
+        </div>
+        <div class="row-5 d-flex justify-content-center">
+            <img src="{% static 'storage/images/Illustration.svg'%}" alt="Illustration" width="70%">
+        </div>
+        </aside>
+        <div class="col-7 h-100 verification_container"><!-- right_aside_white -->>
+        <div class="row check_email">
+            <p class="default_dark">Check your email</p><!-- page_function_section -->
+        </div>
+        <div><!-- image_section -->
+            <img src="{% static 'storage/images/Email.svg'%}" alt="">
+        </div>       
+        <div class="row"><!-- hint -->
+            <p >We've sent an email to  
+                <span class="bold default_dark">mitchellensink@gmail.com
+                </span>to verify your account.
+            </p>
+        </div>
+        <div class="row" style="width: 70%;">
+            <button class="default_blue_bg signup_btn">
+            Login
+            </button>
+        </div>        
+    </div>
+</div>
+{% endblock content %}

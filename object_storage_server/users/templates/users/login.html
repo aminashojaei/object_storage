@@ -1,0 +1,47 @@
+{% extends "storage/layout.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container_fluid h-100">
+    <div class="row h-100">
+      <aside class="col-5 h-100 default_blue_bg d-flex"><!-- left_aside_blue --> 
+        <div class="row-1  logo_container d-flex">
+          <img src="{% static 'storage/images/object_storage_Logo.svg'%}" alt="logo">
+          <h4 class="company_name_container">Storage</h4>
+        </div>
+        <div class="row slogan_container d-flex">
+          <p class="slogan_title">Manage your files the best way</p>
+          <p class="slogan_description">Awesome, we've created the perfect place for you to store all your documents.</p>
+        </div>
+        <div class="row-5 d-flex justify-content-center">
+          <img src="{% static 'storage/images/Illustration.svg'%}" alt="Illustration" width="70%">
+        </div>
+      </aside>
+      <form class="col-7 h-100 information_container" style="gap: 40px;"><!-- right_aside_white -->   
+        <div class="row page_function_login">
+          <p class="default_dark">Login</p>
+        </div>
+        <div class="row inputs_container col-8"><!-- input_section -->
+          <div class="d-flex flex-column input_container">
+            <label for="username-label" name="username-label"class="lable_style">Username | Email</label>
+            <input id="username-label" class="input_style" placeholder="Enter your Username or Email" type="text">
+            <p></p>
+          </div>
+          <div class="d-flex flex-column input_container">
+            <label for="password-label1" name="password-label1"class="lable_style">Password</label>
+            <input id="password-label1" class="input_style" placeholder="Enter Password" type="password">
+            <p></p>
+          </div>
+        </div>
+        <input  class="default_blue_bg login_btn" type="submit" value="Login"><!-- login_btn -->
+        <div class="row go_login"><!-- go_signup -->
+          <p>Don't have an account?
+            <span>
+              <a href="{% url 'register' %}" class="default_blue"> Create Account</a>
+            </span>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock content %}
