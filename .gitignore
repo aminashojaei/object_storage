@@ -1,2 +1,4 @@
 .venv/
 .vscode/
+object_storage_server/object_storage_server/config.py
+
