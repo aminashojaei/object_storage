@@ -17,7 +17,7 @@
             <img src="{% static 'storage/images/Illustration.svg'%}" alt="Illustration" width="70%">
         </div>
         </aside>
-        <div class="col-7 h-100 verification_container"><!-- right_aside_white -->>
+        <div class="col-7 h-100 verification_container"><!-- right_aside_white -->
         <div class="row check_email">
             <p class="default_dark">Check your email</p><!-- page_function_section -->
         </div>
@@ -26,12 +26,12 @@
         </div>       
         <div class="row"><!-- hint -->
             <p >We've sent an email to  
-                <span class="bold default_dark">mitchellensink@gmail.com
+                <span class="bold default_dark">{{ email }}
                 </span>to verify your account.
             </p>
         </div>
         <div class="row" style="width: 70%;">
-            <button class="default_blue_bg signup_btn">
+            <button onclick="location.href = '/login';" class="default_blue_bg signup_btn">
             Login
             </button>
         </div>        

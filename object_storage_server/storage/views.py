@@ -1,17 +1,19 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DeleteView
 from .models import Object
 
-
+@login_required
 def index(request):
     context = {
-        'objects': Object.objects.all()
+        'objects': Object.objects.all(),
+        'title': 'Home'
     }
     return render(request, 'blog/index.html', context)
 
 
-class ObjectListView(ListView):
+class ObjectListView(LoginRequiredMixin, ListView):
     model = Object
     template_name = 'storage/index.html'
     context_object_name = 'objects'

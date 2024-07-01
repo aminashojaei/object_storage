@@ -17,19 +17,20 @@
           <img src="{% static 'storage/images/Illustration.svg'%}" alt="Illustration" width="70%">
         </div>
       </aside>
-      <form class="col-7 h-100 information_container" style="gap: 40px;"><!-- right_aside_white -->   
+      <form method="POST" class="col-7 h-100 information_container" style="gap: 40px;"><!-- right_aside_white -->
+        {% csrf_token %} 
         <div class="row page_function_login">
           <p class="default_dark">Login</p>
         </div>
         <div class="row inputs_container col-8"><!-- input_section -->
           <div class="d-flex flex-column input_container">
-            <label for="username-label" name="username-label"class="lable_style">Username | Email</label>
-            <input id="username-label" class="input_style" placeholder="Enter your Username or Email" type="text">
+            <label for="username" name="username"class="lable_style">Username | Email</label>
+            <input id="username" name="username" class="input_style" placeholder="Enter your Username or Email" type="text">
             <p></p>
           </div>
           <div class="d-flex flex-column input_container">
-            <label for="password-label1" name="password-label1"class="lable_style">Password</label>
-            <input id="password-label1" class="input_style" placeholder="Enter Password" type="password">
+            <label for="password" name="password"class="lable_style">Password</label>
+            <input id="password" name="password" class="input_style" placeholder="Enter Password" type="password">
             <p></p>
           </div>
         </div>

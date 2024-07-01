@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.urls import reverse
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -11,13 +10,15 @@ from .forms import UserRegisterForm
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
+        print(form.is_valid())
+        print(form.errors)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False  # Deactivate account till it is confirmed
             user.save()
 
             token = default_token_generator.make_token(user)
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            uid = user.pk
             verification_link = request.build_absolute_uri(f'/activate/{uid}/{token}/')
 
             send_mail(
@@ -28,7 +29,7 @@ def register(request):
                 fail_silently=False,
             )
 
-            return redirect('account_activation_sent')
+            return redirect(f'{reverse("verify_account_sent")}?email={user.email}')
     else:
         form = UserRegisterForm()
     context = {
@@ -38,9 +39,8 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
-def activate(request, uidb64, token):
+def activate(request, uid, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
@@ -53,5 +53,9 @@ def activate(request, uidb64, token):
         return render(request, 'verify_account_invalid.html')
 
 
-def account_activation_sent(request):
-    return render(request, 'verify_account_sent.html')
+def verify_account_sent(request):
+    context = {
+        'email': request.GET.get('email'),
+        'title': 'Verify Account'
+    }
+    return render(request, 'users/verify_account_sent.html', context)
