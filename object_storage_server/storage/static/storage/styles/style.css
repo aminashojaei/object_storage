@@ -429,6 +429,7 @@ p.file-name {
   justify-content: center;
   align-items: center;
   position: absolute;
+  opacity: 0;
 }
 .popup .popup-item{
   width: 88%;

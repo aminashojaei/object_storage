@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from .config import EMAIL_PASS, EMAIL_USER
+import boto3
+import logging
+from botocore.exceptions import ClientError
+from pathlib import Path
+
+BUCKET_NAME = 'webdev'
+AWS_ACCESS_KEY_ID = 'cad70d91-4a59-41df-93e4-0013e5b5a6e6'
+AWS_SECRET_ACCESS_KEY = 'be7021a93bbee56063b1bca7b2bba8faefacdeef780b270642eec622357a7a69'
+AWS_ENDPOINT_URL='https://s3.ir-thr-at1.arvanstorage.ir'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
