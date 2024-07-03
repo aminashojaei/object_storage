@@ -1,0 +1,214 @@
+{% extends "storage/layout.html" %} {% load static %} {% block content %}
+<header class="container-fluid d-flex">
+  <div class="header_left_side mt-4 d-flex w-50">
+    <div class="d-flex align-items-center">
+      <img
+        class="ps-4"
+        src="{% static 'storage/images/blue_Logo.svg' %}"
+        alt=""
+      />
+      <h4 class="default_blue bold brand_name mb-0 ps-1">Storage</h4>
+    </div>
+    <form class="search_bar_container">
+      <input
+        type="text"
+        class="search_input w-100"
+        placeholder="search . . ."
+      />
+    </form>
+  </div>
+  <div class="header_right_side mt-4 d-flex w-50">
+    <div class="upload_btn_container col-2">
+      <button class="upload_btn default_blue_bg">
+        <img
+          class="pb-1"
+          src="{% static 'storage/images/Upload_icon.svg' %}"
+          alt=""
+        />
+      </button>
+    </div>
+    <a href="" class="user_avatar_container pe-4">
+      <img
+        class="rounded-circle"
+        src="{% static 'storage/images/profile_icon.svg' %}"
+        alt=""
+      />
+      <div class="user_avatar_name">Mitchel</div>
+    </a>
+  </div>
+</header>
+<div
+  class="container-fluid total_object_container very_light mt-3 d-flex flex-column"
+>
+  <div class="data_information d-flex flex-column default mt-3">
+    <h2 class="bold">Objects</h2>
+    <h6 class="light">
+      Total: <span class="medium">12</span><span class="medium">GB</span>
+    </h6>
+  </div>
+  <div class="objects_container d-flex">
+    <div
+      class="d-flex flex-column col-3 justify-content-start"
+      style="position: relative"
+    >
+      <div class="popup d-flex">
+        <!--پاپ آپ برای دانلود و شیر -->
+        <div class="popup-item">
+          <h4 class="medium mb-3 mt-1" style="font-size: larger">
+            App School.fig
+          </h4>
+          <button class="share-container">
+            <div class="share-img">
+              <img src="{% static 'storage/images/share.svg' %}" alt="" />
+            </div>
+            <p class="mb-0">Share</p>
+          </button>
+          <button class="download-container">
+            <div class="download-img">
+              <img src="{% static 'storage/images/Download.svg' %}" alt="" />
+            </div>
+            <p class="mb-0">Download</p>
+          </button>
+          <button class="trash-container">
+            <div class="trash-img">
+              <img src="{% static 'storage/images/Trash.svg' %}" alt="" />
+            </div>
+            <p class="mb-0">Trash</p>
+          </button>
+        </div>
+      </div>
+      <!--هر آبجکت در صفحه اصلی-->
+      <div class="whole_object_container d-flex">
+        <div class="pic-data">
+          <img src="{% static 'storage/images/sketch.svg' %}" alt="" />
+        </div>
+        <div class="txt-data d-flex">
+          <p class="file-name medium">
+            Filename
+            <span class="file-suffix">.sketch </span>
+          </p>
+          <div class="file-inf d-flex medium">
+            <p>10 GB&nbsp;</p>
+            -
+            <p>&nbsp;10:11pm&nbsp;</p>
+            ,
+            <p>10 Oct</p>
+          </div>
+        </div>
+        <button class="popup-btn">
+          <img src="{% static 'storage/images/hambergur-popup.svg' %}" alt="" />
+        </button>
+      </div>
+      <!-- <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div> -->
+      <div class="container mt-5">
+        <!-- لیست مخاطبین بصورت مدال -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
+          باز کردن مدال
+        </button>
+        <!-- ساختار مدال -->
+        <div
+          class="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header top-sticky d-flex">
+                <button
+                  type="button"
+                  class="myModalClose d-flex"
+                  data-dismiss="modal"
+                  aria-label="back"
+                >
+                  <img
+                    src="{% static 'storage/images/Arrow-left.svg' %}"
+                    alt=""
+                  />
+                </button>
+                <h5 class="modal-title" id="myModalLabel">Add People</h5>
+                <p></p>
+              </div>
+              <div class="modal-body">
+                <form class="search_bar_container w-100 mb-4 top-sticky">
+                  <input
+                    type="text"
+                    class="search_input w-100"
+                    placeholder="search people"
+                  />
+                </form>
+                <form class="contents-container d-flex flex-column">
+                  <div class="content-container d-flex">
+                    <div></div>
+                  </div>
+                </form>
+                <div class="form-check contents-container mb-1">
+                  <div class="content-container d-flex">
+                    <input class="form-check-input" type="checkbox" value="" />
+                    <label
+                      class="form-check-label d-flex"
+                      for="flexCheckDefault"
+                    >
+                      <img
+                        src="{% static 'storage/images/Geogre-Michael.svg' %}"
+                        alt=""
+                      />
+                      <div class="d-flex flex-column">
+                        <p class="user-name mb-0 medium">Geogre Michael</p>
+                        <p class="user-email mb-0 light default_light">
+                          geogre@gmail.com
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div class="modal-footer bottom-sticky">
+                  <div class="image-stack-container d-flex">
+                    <img
+                      class="overlap-img"
+                      src="{% static 'storage/images/Geogre-Michael.svg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <button type="submit" class="viewList-btn">Continue</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column col-3 justify-content-evenly">
+        <!-- <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div> -->
+      </div>
+      <div class="d-flex flex-column col-3 justify-content-evenly">
+        <!-- <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div> -->
+      </div>
+      <div class="d-flex flex-column col-3 justify-content-evenly">
+        <!-- <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div>
+          <div class="whole_object_container"></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
