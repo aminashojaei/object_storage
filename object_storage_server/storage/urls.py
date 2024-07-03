@@ -6,4 +6,8 @@ from . import views
 urlpatterns = [
     path('', storage_views.index, name='index'),
     # path('', ObjectListView.as_view(), name='index'),
+    path('object/<int:pk>/update/', views.update_permissions, name='update_permissions'),
+    # path('post/new/', PostCreateView.as_view(), name='post-create'),
+    # path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 ]
