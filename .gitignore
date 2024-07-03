@@ -1,4 +1,8 @@
 .venv/
+venv/
 .vscode/
 object_storage_server/object_storage_server/config.py
+.idea/
+__pycache__/
+*.sqlite3
 
