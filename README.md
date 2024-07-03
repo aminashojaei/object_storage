@@ -70,3 +70,5 @@ And then
 ```sh
 python manage.py runserver
 ```
+
+hello Amina
