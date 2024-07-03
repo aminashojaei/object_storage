@@ -6,19 +6,29 @@ from .models import Object
 
 @login_required
 def index(request):
+    objects = [
+        {'name': 'App School.fig', 'size': '10 GB', 'date_modified': '10 Oct'},
+        {'name': 'BC Company.sketch', 'size': '10 GB', 'date_modified': '10 Oct'},
+        {'name': 'BC Company.sketch', 'size': '10 GB', 'date_modified': '10 Oct'},
+        {'name': 'BC Company.sketch', 'size': '10 GB', 'date_modified': '10 Oct'},
+        {'name': 'BC Company.sketch', 'size': '10 GB', 'date_modified': '10 Oct'},
+        {'name': 'BC Company.sketch', 'size': '10 GB', 'date_modified': '10 Oct'},
+    ]
     context = {
-        'objects': Object.objects.all(),
+        'objects': objects,
         'title': 'Home'
     }
-    return render(request, 'blog/index.html', context)
+    
+    return render(request, 'storage/viewlist.html', context)
 
 
 class ObjectListView(LoginRequiredMixin, ListView):
+
     model = Object
-    template_name = 'storage/index.html'
+    template_name = 'storage/viewlist.html'
     context_object_name = 'objects'
     ordering = ['-date_posted']
-    paginate_by = 5
+    paginate_by = 24
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
