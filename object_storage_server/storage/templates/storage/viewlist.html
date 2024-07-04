@@ -245,11 +245,11 @@
 </div>
 {% endblock content %}
 
-{% comment %} {% if user.is_authenticated and user.username == object.owner %}
+ {% if user.is_authenticated and user.username == object.owner %}
     show all buttons
 {% else %}
     just show the download button
-{% endif %} {% endcomment %}
+{% endif %}
 
 
 {% comment %} {% if object.file_format == "png" and object.file_format == "jpg" and object.file_format == "jpeg" %}

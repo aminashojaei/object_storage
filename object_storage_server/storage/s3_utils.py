@@ -131,9 +131,7 @@ def delete_file(object_id):
         bucket = s3_resource.Bucket(BUCKET_NAME)
         object = bucket.Object(object_id)
 
-        response = object.delete(
-            # VersionId='string',
-        )
+        response = object.delete()
         print(response)
         return True
     except ClientError as e:
