@@ -3,8 +3,8 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.contrib.auth.models import User
 
-from .forms import ObjectPermissionForm
 from .models import Object
 
 @login_required
@@ -19,6 +19,7 @@ def index(request):
     ]
     context = {
         'objects': objects,
+        'users': User.objects.all(),
         'title': 'Home'
     }
     
@@ -54,22 +55,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-class ObjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Object
-    form_class = ObjectPermissionForm
-    fields = ['permitted_users']
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        obj = self.get_object()
-        if (self.request.user == obj.owner):
-            return True
-        return False
-
-
 @login_required
 def update_permissions(request, pk):
     obj = get_object_or_404(Object, pk=pk)
@@ -78,11 +63,10 @@ def update_permissions(request, pk):
         return HttpResponseForbidden("You are not allowed to edit permissions for this object.")
 
     if request.method == 'POST':
-        form = ObjectPermissionForm(request.POST, instance=obj)
-        if form.is_valid():
-            form.save()
-            return redirect('object_detail', pk=obj.pk)
-    else:
-        form = ObjectPermissionForm(instance=obj)
+        selected_users = request.POST.getlist("selected_users")
+        users = User.objects.filter(username__in=selected_users)
+        obj.permitted_users.set(users)
+        obj.save()
+        return redirect("index")
     
-    return render(request, 'object_permissions.html', {'form': form, 'object': obj})
+    return redirect("index")
