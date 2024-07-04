@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - db_data:/app/db.sqlite3
+    container_name: back-end
+
+volumes:
+  db_data:

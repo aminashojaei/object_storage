@@ -81,7 +81,17 @@
         <!--هر آبجکت در صفحه اصلی-->
         <div class="whole_object_container d-flex">
           <div class="pic-data">
-            <img src="{% static 'storage/images/sketch.svg' %}" alt="" />
+            {% if object.file_format == "png" and object.file_format == "jpg" and object.file_format == "jpeg" %}
+                <img src="{% static 'storage/images/file_icons/image.jpg' %}" alt="" />
+            {% elif object.file_format == "mp4" %}
+                <img src="{% static 'storage/images/file_icons/video.jpg' %}" alt="" />
+            {% elif object.file_format == "mp3" %}
+                <img src="{% static 'storage/images/file_icons/audio.jpg' %}" alt="" />
+            {% elif object.file_format == "pdf" %}
+                <img src="{% static 'storage/images/file_icons/pdf.jpg' %}" alt="" />
+            {% else %}
+                <img src="{% static 'storage/images/file_icons/others.jpg' %}" alt="" />
+            {% endif %}
           </div>
           <div class="txt-data d-flex">
             <p class="file-name medium">
@@ -158,7 +168,7 @@
                     {% for user in users %}
                     {% if user in object.permitted_users.all %}
                       <div class="content-container d-flex">
-                        <input class="form-check-input" type="checkbox" value="{{ user.username }}" name="selected_users"/>
+                        <input class="form-check-input" type="checkbox" checked value="{{ user.username }}" name="selected_users"/>
                         <label
                           class="form-check-label d-flex"
                           for="flexCheckDefault"
@@ -250,27 +260,3 @@
 {% else %}
     just show the download button
 {% endif %}
-
-
-{% comment %} {% if object.file_format == "png" and object.file_format == "jpg" and object.file_format == "jpeg" %}
-  <div class="pic-data">
-    <img src="{% static 'storage/images/file_icons/image.jpg' %}" alt="" />
-  </div>
-{% elif object.file_format == "mp4" %}
-  <div class="pic-data">
-    <img src="{% static 'storage/images/file_icons/video.jpg' %}" alt="" />
-  </div>
-{% elif object.file_format == "mp3" %}
-  <div class="pic-data">
-    <img src="{% static 'storage/images/file_icons/audio.jpg' %}" alt="" />
-  </div>
-{% elif object.file_format == "pdf" %}
-  <div class="pic-data">
-    <img src="{% static 'storage/images/file_icons/pdf.jpg' %}" alt="" />
-  </div>
-{% else %}
-  <div class="pic-data">
-    <img src="{% static 'storage/images/file_icons/others.jpg' %}" alt="" />
-  </div>
-{% endif %} {% endcomment %}
-
