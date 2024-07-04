@@ -2,10 +2,9 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.models import User
 
-from .forms import ObjectPermissionForm
 from .models import Object
 import json
 from django.shortcuts import get_object_or_404
@@ -109,12 +108,6 @@ def upload_file_view(request):
         return render(request, 'storage/upload_file.html')
 
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.contrib.auth.decorators import login_required
-from .models import Object
-
 @login_required
 def update_permissions(request, pk):
     obj = get_object_or_404(Object, pk=pk)
@@ -131,6 +124,8 @@ def update_permissions(request, pk):
     
     return redirect("index")
 
+
+@login_required
 def objects_list_view(request):
     # Initialize the Singleton with settings
     S3ResourceSingleton()
