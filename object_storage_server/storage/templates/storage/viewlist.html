@@ -211,3 +211,33 @@
   </div>
 </div>
 {% endblock content %}
+
+{% comment %} {% if user.is_authenticated and user.username == object.owner %}
+    show all buttons
+{% else %}
+    just show the download button
+{% endif %} {% endcomment %}
+
+
+{% comment %} {% if object.file_format == "png" and object.file_format == "jpg" and object.file_format == "jpeg" %}
+  <div class="pic-data">
+    <img src="{% static 'storage/images/file_icons/image.jpg' %}" alt="" />
+  </div>
+{% elif object.file_format == "mp4" %}
+  <div class="pic-data">
+    <img src="{% static 'storage/images/file_icons/video.jpg' %}" alt="" />
+  </div>
+{% elif object.file_format == "mp3" %}
+  <div class="pic-data">
+    <img src="{% static 'storage/images/file_icons/audio.jpg' %}" alt="" />
+  </div>
+{% elif object.file_format == "pdf" %}
+  <div class="pic-data">
+    <img src="{% static 'storage/images/file_icons/pdf.jpg' %}" alt="" />
+  </div>
+{% else %}
+  <div class="pic-data">
+    <img src="{% static 'storage/images/file_icons/others.jpg' %}" alt="" />
+  </div>
+{% endif %} {% endcomment %}
+

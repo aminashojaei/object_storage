@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+
+from .forms import ObjectPermissionForm
 from .models import Object
 import json
 from django.shortcuts import get_object_or_404
@@ -44,14 +47,14 @@ class ObjectListView(LoginRequiredMixin, ListView):
     ordering = ['-date_posted']
     paginate_by = 24
 
+    def get_queryset(self):
+        user = self.request.user
+        return Object.objects.filter(owner=user) | Object.objects.filter(permitted_users=user)
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+
+class ObjectCreateView(LoginRequiredMixin, CreateView):
     model = Object
     fields = ['title']
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

@@ -13,6 +13,11 @@ class Object(models.Model):
     # date_and_time = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=10, default=None)  # Example values: 'mp3', 'mp4', etc.
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    permitted_users = models.ManyToManyField(User, related_name="permitted_objects")
+    url = models.URLField(default=None)
+    file_format = models.CharField(max_length=10, default=None)
+    size = models.IntegerField(default=0)
+
 
     def save(self, *args, **kwargs):
         if not self.id:
