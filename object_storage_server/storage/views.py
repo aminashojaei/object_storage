@@ -5,22 +5,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.models import User
 
-from .models import Object
 import json
-from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .models import Object
 from django.http import JsonResponse
-from django.conf import settings
 from storage.s3_utils import S3ResourceSingleton, upload_file, objects_list, delete_file
 from django.core.paginator import Paginator
 from django.db.models import Sum
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.contrib.auth.decorators import login_required
-from .models import Object
 
 def index(request):
     objects = [
