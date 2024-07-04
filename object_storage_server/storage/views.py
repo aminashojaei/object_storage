@@ -28,7 +28,7 @@ def index(request):
         'users': User.objects.all(),
         'title': 'Home'
     }
-    
+
     return render(request, 'storage/viewlist.html', context)
 
 
@@ -43,10 +43,15 @@ class ObjectListView(LoginRequiredMixin, ListView):
         user = self.request.user
         return Object.objects.filter(owner=user) | Object.objects.filter(permitted_users=user)
 
-
-class ObjectCreateView(LoginRequiredMixin, CreateView):
-    model = Object
-    fields = ['title']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sum_size = 0
+        print(context["objects"])
+        for object in context["objects"]:
+            print(object.file_name)
+            sum_size += object.size
+        context["sum_size"] = sum_size
+        return context
 
 
 class ObjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -72,9 +77,9 @@ def upload_file_view(request):
                 file_name=file_name,
                 size=file_size,
                 file_format=file_type,
-                owner=request.user 
+                owner=request.user
             )
-            obj.url = f"https://object-storage-web-project.s3.ir-thr-at1.arvanstorage.ir/{obj.id}"
+            
             obj.save()
 
             success = upload_file(file, obj.pk)
@@ -96,17 +101,18 @@ def upload_file_view(request):
 @login_required
 def update_permissions(request, pk):
     obj = get_object_or_404(Object, pk=pk)
-    
+
     if obj.owner != request.user:
         return HttpResponseForbidden("You are not allowed to edit permissions for this object.")
 
     if request.method == 'POST':
         selected_users = request.POST.getlist("selected_users")
         users = User.objects.filter(username__in=selected_users)
+        print(users)
         obj.permitted_users.set(users)
         obj.save()
         return redirect("index")
-    
+
     return redirect("index")
 
 
