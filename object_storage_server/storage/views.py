@@ -107,69 +107,89 @@ def upload_file_view(request):
         return render(request, 'storage/upload_file.html')
 
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.contrib.auth.decorators import login_required
-from .models import Object
+# from django.shortcuts import render
+# from django.core.paginator import Paginator
+# from django.db.models import Sum
+# from django.contrib.auth.decorators import login_required
+# from .models import Object
 
-@login_required
-def objects_list_view(request):
-    # Initialize the Singleton with settings
+# @login_required
+# def objects_list_view(request):
+#     # Initialize the Singleton with settings
+#     S3ResourceSingleton()
+
+#     if request.method == 'GET':
+#         total_size = 0
+
+#         query = request.GET.get('query', None)
+#         page_number = request.GET.get('page')
+
+#         object_key = objects_list()
+#         if object_key is not None:
+
+#             # Fetch objects owned by the logged-in user
+#             owned_objects = Object.objects.filter(owner=request.user)
+#             if owned_objects.exists():
+#                 total_size1 = owned_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
+#                 total_size += total_size1
+
+#             # Fetch objects accessed by the logged-in user
+#             # accessed_objects = request.user.accessed_objects.all()
+#             # if accessed_objects.exists():
+#             #     total_size2 = accessed_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
+#             #     total_size += total_size2
+
+#             # Check if there is a query in the search bar
+#             # if query:
+#             #     owned_objects = owned_objects.filter(file_name__icontains=query)
+#             #     accessed_objects = accessed_objects.filter(file_name__icontains=query)
+
+#             # Combine both query sets into a single list
+#             list_of_objects = list(owned_objects) #+ list(accessed_objects)
+
+#             # Use Django's paginator to paginate the combined list
+#             paginator = Paginator(list_of_objects, 3)
+#             page_objects = paginator.get_page(page_number)
+
+#             # Render the template with the context
+#             return render(request, 'storage/objects_list.html', {
+#                 'message': 'List of objects showed successfully',
+#                 'list_of_objects': page_objects,  # Pass paginated objects directly
+#                 'total_pages': page_objects.paginator.num_pages,
+#                 'total_size': total_size,
+#                 'query': query,
+#                 'current_page': page_objects.number,
+#             })
+
+#         else:
+#             return render(request, 'storage/objects_list.html', {
+#                 'message': 'Failed to show list of objects',
+#                 'list_of_objects': [],
+#                 'total_pages': 0,
+#                 'total_size': total_size,
+#             })
+#     else:
+#         return render(request, 'storage/objects_list.html', {
+#             'error': 'GET method required'
+#         })
+
+@csrf_exempt
+def delete_file_view(request):
+
     S3ResourceSingleton()
 
-    if request.method == 'GET':
-        total_size = 0
+    if request.method == 'POST':
+        object_id = request.POST.get('object_id')
+        if not object_id:
+            return JsonResponse({'error': 'Object ID is required'}, status=400)
 
-        query = request.GET.get('query', None)
-        page_number = request.GET.get('page')
+        success = delete_file(object_id)
 
-        object_key = objects_list()
-        if object_key is not None:
-
-            # Fetch objects owned by the logged-in user
-            owned_objects = Object.objects.filter(owner=request.user)
-            if owned_objects.exists():
-                total_size1 = owned_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
-                total_size += total_size1
-
-            # Fetch objects accessed by the logged-in user
-            # accessed_objects = request.user.accessed_objects.all()
-            # if accessed_objects.exists():
-            #     total_size2 = accessed_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
-            #     total_size += total_size2
-
-            # Check if there is a query in the search bar
-            # if query:
-            #     owned_objects = owned_objects.filter(file_name__icontains=query)
-            #     accessed_objects = accessed_objects.filter(file_name__icontains=query)
-
-            # Combine both query sets into a single list
-            list_of_objects = list(owned_objects) #+ list(accessed_objects)
-
-            # Use Django's paginator to paginate the combined list
-            paginator = Paginator(list_of_objects, 3)
-            page_objects = paginator.get_page(page_number)
-
-            # Render the template with the context
-            return render(request, 'storage/objects_list.html', {
-                'message': 'List of objects showed successfully',
-                'list_of_objects': page_objects,  # Pass paginated objects directly
-                'total_pages': page_objects.paginator.num_pages,
-                'total_size': total_size,
-                'query': query,
-                'current_page': page_objects.number,
-            })
-
+        if success:
+            Object.objects.filter(id=object_id).delete()
+            return JsonResponse({'message': 'File deleted successfully'}, status=200)
         else:
-            return render(request, 'storage/objects_list.html', {
-                'message': 'Failed to show list of objects',
-                'list_of_objects': [],
-                'total_pages': 0,
-                'total_size': total_size,
-            })
+            return JsonResponse({'message': 'Failed to delete file'}, status=500)
+  
     else:
-        return render(request, 'storage/objects_list.html', {
-            'error': 'GET method required'
-        })
-
+        return render(request, 'storage/delete_file.html')
