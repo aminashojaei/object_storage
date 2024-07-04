@@ -73,12 +73,14 @@
                 <img src="{% static 'storage/images/Download.svg' %}" alt="" />
               </div>
               <p class="mb-0">Download</p>
+              <a class="dropdown-item" href="{{ object.url }}" download>Download</a>
             </button>
             <button class="trash-container">
               <div class="trash-img">
                 <img src="{% static 'storage/images/Trash.svg' %}" alt="" />
               </div>
               <p class="mb-0">Trash</p>
+              <a class="dropdown-item" href="{% url 'delete_object' object.id %}">Delete</a>
             </button>
           {% else %}
             <button class="download-container">
@@ -86,6 +88,7 @@
                 <img src="{% static 'storage/images/Download.svg' %}" alt="" />
               </div>
               <p class="mb-0">Download</p>
+              <a class="dropdown-item" href="{{ object.url }}" download>Download</a>
             </button>
           {% endif %}
         </div>
