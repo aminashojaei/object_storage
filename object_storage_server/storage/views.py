@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.models import User
-
+from django.contrib import messages
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import Object
@@ -113,30 +113,20 @@ def update_permissions(request, pk):
     return redirect("index")
 
 
-from django.contrib import messages
-
+@csrf_exempt
 def delete_file_view(request):
+    # Initialize the Singleton with settings
     S3ResourceSingleton()
 
     if request.method == 'POST':
-        object_id = request.POST.get('object_id')
-        if not object_id:
-            messages.error(request, 'Object ID is required')
-            return redirect('delete_file')
-
+        file = json.loads(request.body)
+        object_id = file["object_id"]
         success = delete_file(object_id)
 
         if success:
-            Object.objects.filter(id=object_id).delete()
-            messages.success(request, 'File deleted successfully')
+            Object.objects.get(id=object_id).delete()
+            return JsonResponse({'message': 'File deleted successfully'}, status=200)
         else:
-            messages.error(request, 'Failed to delete file')
-
-        return redirect('delete_file')
+            return JsonResponse({'message': 'Failed to delete file'}, status=500)
     else:
-        messages.error(request, 'POST method required')
-        return redirect('delete_file')
-
-  
-    # else:
-    #     return render(request, 'storage/delete_file.html')
+        return JsonResponse({'error': 'POST method required'}, status=400)
