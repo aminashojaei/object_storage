@@ -2,25 +2,17 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView
+from django.contrib.auth.models import User
 
-from .forms import ObjectPermissionForm
-from .models import Object
 import json
-from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from .models import Object
 from django.http import JsonResponse
-from django.conf import settings
 from storage.s3_utils import S3ResourceSingleton, upload_file, objects_list, delete_file
 from django.core.paginator import Paginator
 from django.db.models import Sum
 
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from django.db.models import Sum
-from django.contrib.auth.decorators import login_required
-from .models import Object
 
 def index(request):
     objects = [
@@ -33,6 +25,7 @@ def index(request):
     ]
     context = {
         'objects': objects,
+        'users': User.objects.all(),
         'title': 'Home'
     }
     
@@ -107,74 +100,22 @@ def upload_file_view(request):
         return render(request, 'storage/upload_file.html')
 
 
-# from django.shortcuts import render
-# from django.core.paginator import Paginator
-# from django.db.models import Sum
-# from django.contrib.auth.decorators import login_required
-# from .models import Object
+@login_required
+def update_permissions(request, pk):
+    obj = get_object_or_404(Object, pk=pk)
+    
+    if obj.owner != request.user:
+        return HttpResponseForbidden("You are not allowed to edit permissions for this object.")
 
-# @login_required
-# def objects_list_view(request):
-#     # Initialize the Singleton with settings
-#     S3ResourceSingleton()
+    if request.method == 'POST':
+        selected_users = request.POST.getlist("selected_users")
+        users = User.objects.filter(username__in=selected_users)
+        obj.permitted_users.set(users)
+        obj.save()
+        return redirect("index")
+    
+    return redirect("index")
 
-#     if request.method == 'GET':
-#         total_size = 0
-
-#         query = request.GET.get('query', None)
-#         page_number = request.GET.get('page')
-
-#         object_key = objects_list()
-#         if object_key is not None:
-
-#             # Fetch objects owned by the logged-in user
-#             owned_objects = Object.objects.filter(owner=request.user)
-#             if owned_objects.exists():
-#                 total_size1 = owned_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
-#                 total_size += total_size1
-
-#             # Fetch objects accessed by the logged-in user
-#             # accessed_objects = request.user.accessed_objects.all()
-#             # if accessed_objects.exists():
-#             #     total_size2 = accessed_objects.aggregate(total_size=Sum('size'))['total_size'] or 0
-#             #     total_size += total_size2
-
-#             # Check if there is a query in the search bar
-#             # if query:
-#             #     owned_objects = owned_objects.filter(file_name__icontains=query)
-#             #     accessed_objects = accessed_objects.filter(file_name__icontains=query)
-
-#             # Combine both query sets into a single list
-#             list_of_objects = list(owned_objects) #+ list(accessed_objects)
-
-#             # Use Django's paginator to paginate the combined list
-#             paginator = Paginator(list_of_objects, 3)
-#             page_objects = paginator.get_page(page_number)
-
-#             # Render the template with the context
-#             return render(request, 'storage/objects_list.html', {
-#                 'message': 'List of objects showed successfully',
-#                 'list_of_objects': page_objects,  # Pass paginated objects directly
-#                 'total_pages': page_objects.paginator.num_pages,
-#                 'total_size': total_size,
-#                 'query': query,
-#                 'current_page': page_objects.number,
-#             })
-
-#         else:
-#             return render(request, 'storage/objects_list.html', {
-#                 'message': 'Failed to show list of objects',
-#                 'list_of_objects': [],
-#                 'total_pages': 0,
-#                 'total_size': total_size,
-#             })
-#     else:
-#         return render(request, 'storage/objects_list.html', {
-#             'error': 'GET method required'
-#         })
-
-@csrf_exempt
-def delete_file_view(request):
 
     S3ResourceSingleton()
 
