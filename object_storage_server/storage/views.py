@@ -33,7 +33,6 @@ def index(request):
 
 
 class ObjectListView(LoginRequiredMixin, ListView):
-
     model = Object
     template_name = 'storage/viewlist.html'
     context_object_name = 'objects'
@@ -50,7 +49,7 @@ class ObjectCreateView(LoginRequiredMixin, CreateView):
     fields = ['title']
 
 
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class ObjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Object
     success_url = '/'
 
@@ -69,20 +68,18 @@ def upload_file_view(request):
             file_name = file.name
             file_size = file.size
             file_type = file_name.split('.')[-1]
-
             obj = Object(
                 file_name=file_name,
                 size=file_size,
                 file_format=file_type,
                 owner=request.user 
             )
-            
-
-            success = upload_file(file , obj.id)
             obj.url = f"https://object-storage-web-project.s3.ir-thr-at1.arvanstorage.ir/{obj.id}"
+            obj.save()
+
+            success = upload_file(file, obj.pk)
 
             if success:
-                obj.save()
                 return JsonResponse({'message': 'File uploaded successfully'}, status=200)
             else:
                 return JsonResponse({'message': 'Failed to upload file'}, status=500)
