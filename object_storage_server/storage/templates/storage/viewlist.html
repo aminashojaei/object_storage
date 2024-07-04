@@ -1,4 +1,7 @@
-{% extends "storage/layout.html" %} {% load static %} {% block content %}
+{% extends "storage/layout.html" %}
+{% load static %}
+
+{% block content %}
 <header class="container-fluid d-flex">
   <div class="header_left_side mt-4 d-flex w-50">
     <div class="d-flex align-items-center">
@@ -43,10 +46,11 @@
   <div class="data_information d-flex flex-column default mt-3">
     <h2 class="bold">Objects</h2>
     <h6 class="light">
-      Total: <span class="medium">12</span><span class="medium">GB</span>
+      Total: <span class="medium">{{ sum_size }}</span><span class="medium">GB</span>
     </h6>
   </div>
   <div class="objects_container d-flex">
+    {% for object in objects %}
     <div
       class="d-flex flex-column col-3 justify-content-start"
       style="position: relative"
@@ -55,33 +59,41 @@
         <!--پاپ آپ برای دانلود و شیر -->
         <div class="popup-item">
           <h4 class="medium mb-3 mt-1" style="font-size: larger">
-            App School.fig
+            {{ object.file_name }}
           </h4>
-          <button class="share-container">
-            <div class="share-img">
-              <img src="{% static 'storage/images/share.svg' %}" alt="" />
-            </div>
-            <p class="mb-0">Share</p>
-          </button>
-          <button class="download-container">
-            <div class="download-img">
-              <img src="{% static 'storage/images/Download.svg' %}" alt="" />
-            </div>
-            <p class="mb-0">Download</p>
-          </button>
-          <button class="trash-container">
-            <div class="trash-img">
-              <img src="{% static 'storage/images/Trash.svg' %}" alt="" />
-            </div>
-            <p class="mb-0">Trash</p>
-          </button>
+          {% if user.is_authenticated and user.username == object.owner %}
+            <button class="share-container">
+              <div class="share-img">
+                <img src="{% static 'storage/images/share.svg' %}" alt="" />
+              </div>
+              <p class="mb-0">Share</p>
+            </button>
+            <button class="download-container">
+              <div class="download-img">
+                <img src="{% static 'storage/images/Download.svg' %}" alt="" />
+              </div>
+              <p class="mb-0">Download</p>
+            </button>
+            <button class="trash-container">
+              <div class="trash-img">
+                <img src="{% static 'storage/images/Trash.svg' %}" alt="" />
+              </div>
+              <p class="mb-0">Trash</p>
+            </button>
+          {% else %}
+            <button class="download-container">
+              <div class="download-img">
+                <img src="{% static 'storage/images/Download.svg' %}" alt="" />
+              </div>
+              <p class="mb-0">Download</p>
+            </button>
+          {% endif %}
         </div>
       </div>
-      {% for object in objects %}
         <!--هر آبجکت در صفحه اصلی-->
         <div class="whole_object_container d-flex">
           <div class="pic-data">
-            {% if object.file_format == "png" and object.file_format == "jpg" and object.file_format == "jpeg" %}
+            {% if object.file_format == "png" or object.file_format == "jpg" or object.file_format == "jpeg" %}
                 <img src="{% static 'storage/images/file_icons/image.jpg' %}" alt="" />
             {% elif object.file_format == "mp4" %}
                 <img src="{% static 'storage/images/file_icons/video.jpg' %}" alt="" />
@@ -95,15 +107,16 @@
           </div>
           <div class="txt-data d-flex">
             <p class="file-name medium">
-              Filename
-              <span class="file-suffix">.sketch </span>
+              {% comment %} {{ object.name }} {% endcomment %}
+              <a class="file-suffix" href="{{ object.url }}">{{ object.file_name }}</a>
+              {% comment %} <span class="file-suffix">{{ object.file_format }} </span> {% endcomment %}
             </p>
             <div class="file-inf d-flex medium">
-              <p>object.size GB&nbsp;</p>
+              <p>{{ object.size }} GB&nbsp;</p>
               -
-              <p>&nbsp;10:11pm&nbsp;</p>
+              <p>&nbsp;{{ object.get_hour }}:{{ object.get_minute }}</p>
               ,
-              <p>10 Oct</p>
+              <p>&nbsp;{{ object.get_date }}</p>
             </div>
           </div>
           <button class="popup-btn">
@@ -121,7 +134,7 @@
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#myModal"
-            {% comment %} href="{% url 'update_permissions' object.id %}" {% endcomment %}
+            href="{% url 'update_permissions' object.id %}"
           >
             باز کردن مدال
           </button>
@@ -166,53 +179,60 @@
                   </form>
                   <div class="form-check contents-container mb-1">
                     {% for user in users %}
-                    {% if user in object.permitted_users.all %}
-                      <div class="content-container d-flex">
-                        <input class="form-check-input" type="checkbox" checked value="{{ user.username }}" name="selected_users"/>
-                        <label
-                          class="form-check-label d-flex"
-                          for="flexCheckDefault"
-                        >
-                          <img
-                            src="{% static 'storage/images/Geogre-Michael.svg' %}"
-                            alt=""
-                          />
-                          <div class="d-flex flex-column">
-                            <p class="user-name mb-0 medium">{{ user.username }}</p>
-                            <p class="user-email mb-0 light default_light">
-                              {{ user.email }}
-                            </p>
-                          </div>
-                        </label>
-                      </div>
-                    {% endif %}
+                    <p>{{ user.username }}</p>
+                      {% if user in object.permitted_users.all %}
+                        <div class="content-container d-flex">
+                          <input class="form-check-input" type="checkbox" checked value="{{ user.username }}" name="selected_users"/>
+                          <label
+                            class="form-check-label d-flex"
+                            for="flexCheckDefault"
+                          >
+                            <img
+                              src="{% static 'storage/images/Geogre-Michael.svg' %}"
+                              alt=""
+                            />
+                            <div class="d-flex flex-column">
+                              <p class="user-name mb-0 medium">{{ user.username }}</p>
+                              <p class="user-email mb-0 light default_light">
+                                {{ user.email }}
+                              </p>
+                            </div>
+                          </label>
+                        </div>
+                      {% endif %}
                     {% endfor %}
                     {% for user in users %}
-                    {% if user not in object.permitted_users.all %}
-                      <div class="content-container d-flex">
-                        <input class="form-check-input" type="checkbox" value="{{ user.username }}" name="selected_users"/>
-                        <label
-                          class="form-check-label d-flex"
-                          for="flexCheckDefault"
-                        >
-                          <img
-                            src="{% static 'storage/images/Geogre-Michael.svg' %}"
-                            alt=""
-                          />
-                          <div class="d-flex flex-column">
-                            <p class="user-name mb-0 medium">{{ user.username }}</p>
-                            <p class="user-email mb-0 light default_light">
-                              {{ user.email }}
-                            </p>
-                          </div>
-                        </label>
-                      </div>
-                    {% endif %}
+                    <p>{{ user.username }}</p>
+                      {% if user not in object.permitted_users.all %}
+                        <div class="content-container d-flex">
+                          <input class="form-check-input" type="checkbox" value="{{ user.username }}" name="selected_users"/>
+                          <label
+                            class="form-check-label d-flex"
+                            for="flexCheckDefault"
+                          >
+                            <img
+                              src="{% static 'storage/images/Geogre-Michael.svg' %}"
+                              alt=""
+                            />
+                            <div class="d-flex flex-column">
+                              <p class="user-name mb-0 medium">{{ user.username }}</p>
+                              <p class="user-email mb-0 light default_light">
+                                {{ user.email }}
+                              </p>
+                            </div>
+                          </label>
+                        </div>
+                      {% endif %}
                     {% endfor %}
                   </div>
                   <div class="modal-footer bottom-sticky">
                     <button type="submit" class="viewList-btn">Continue</button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
                   {% comment %} <div class="modal-footer bottom-sticky">
                     <div class="image-stack-container d-flex">
                       <img
@@ -249,14 +269,8 @@
             <div class="whole_object_container"></div>
             <div class="whole_object_container"></div> -->
         </div> {% endcomment %}
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}
-
- {% if user.is_authenticated and user.username == object.owner %}
-    show all buttons
-{% else %}
-    just show the download button
-{% endif %}

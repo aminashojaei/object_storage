@@ -8,7 +8,7 @@ urlpatterns = [
     path('', ObjectListView.as_view(), name='index'),
     path('add/', storage_views.upload_file_view, name="add"),
     # path('query/', storage_views.objects_list_view, name="query"),
-    path('object/<int:pk>/update/', views.update_permissions, name='update_permissions'),
+    path('object/<str:pk>/update/', views.update_permissions, name='update_permissions'),
     path('delete_file/', storage_views.delete_file, name="delete_file"),
 
     # path('post/new/', PostCreateView.as_view(), name='post-create'),
