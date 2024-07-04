@@ -61,7 +61,7 @@
           <h4 class="medium mb-3 mt-1" style="font-size: larger">
             {{ object.file_name }}
           </h4>
-          {% if user.is_authenticated and user.username == object.owner %}
+          {% comment %} {% if user.is_authenticated and user.username == object.owner %} {% endcomment %}
             <button class="share-container">
               <div class="share-img">
                 <img src="{% static 'storage/images/share.svg' %}" alt="" />
@@ -82,15 +82,15 @@
               <p class="mb-0">Trash</p>
               <a class="dropdown-item" href="{% url 'delete_object' object.id %}">Delete</a>
             </button>
-          {% else %}
-            <button class="download-container">
+          {% comment %} {% else %} {% endcomment %}
+            {% comment %} <button class="download-container">
               <div class="download-img">
                 <img src="{% static 'storage/images/Download.svg' %}" alt="" />
               </div>
               <p class="mb-0">Download</p>
               <a class="dropdown-item" href="{{ object.url }}" download>Download</a>
-            </button>
-          {% endif %}
+            </button> {% endcomment %}
+          {% comment %} {% endif %} {% endcomment %}
         </div>
       </div>
         <!--هر آبجکت در صفحه اصلی-->
