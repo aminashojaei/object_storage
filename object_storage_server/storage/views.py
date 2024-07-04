@@ -61,32 +61,28 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-@csrf_exempt
+@login_required
 def upload_file_view(request):
     if request.method == 'POST':
         try:
             file = request.FILES['file']
             file_name = file.name
             file_size = file.size
-            dot_position = file_name.rfind('.')
-            if dot_position != -1:
-                file_type = file_name[dot_position + 1:]
-            else:
-                file_type = ''
+            file_type = file_name.split('.')[-1]
 
-            # ایجاد شیء Object
             obj = Object(
                 file_name=file_name,
                 size=file_size,
-                type=file_type,
+                file_format=file_type,
                 owner=request.user 
             )
-            obj.save()
+            
 
-            # آپلود فایل با استفاده از تابع `upload_file از utils.py
             success = upload_file(file , obj.id)
+            obj.url = f"https://object-storage-web-project.s3.ir-thr-at1.arvanstorage.ir/{obj.id}"
 
             if success:
+                obj.save()
                 return JsonResponse({'message': 'File uploaded successfully'}, status=200)
             else:
                 return JsonResponse({'message': 'Failed to upload file'}, status=500)
