@@ -37,7 +37,7 @@ class ObjectListView(LoginRequiredMixin, ListView):
     template_name = 'storage/viewlist.html'
     context_object_name = 'objects'
     ordering = ['-date_posted']
-    paginate_by = 24
+    paginate_by = 5
 
     def get_queryset(self):
         user = self.request.user
