@@ -179,7 +179,6 @@
                   </form>
                   <div class="form-check contents-container mb-1">
                     {% for user in users %}
-                    <p>{{ user.username }}</p>
                       {% if user in object.permitted_users.all %}
                         <div class="content-container d-flex">
                           <input class="form-check-input" type="checkbox" checked value="{{ user.username }}" name="selected_users"/>
@@ -202,7 +201,6 @@
                       {% endif %}
                     {% endfor %}
                     {% for user in users %}
-                    <p>{{ user.username }}</p>
                       {% if user not in object.permitted_users.all %}
                         <div class="content-container d-flex">
                           <input class="form-check-input" type="checkbox" value="{{ user.username }}" name="selected_users"/>

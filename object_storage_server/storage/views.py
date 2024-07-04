@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from storage.s3_utils import S3ResourceSingleton, upload_file, objects_list, delete_file
 from django.core.paginator import Paginator
 from django.db.models import Sum
-
+import boto3
 
 def index(request):
     objects = [
@@ -51,18 +51,8 @@ class ObjectListView(LoginRequiredMixin, ListView):
             print(object.file_name)
             sum_size += object.size
         context["sum_size"] = sum_size
+        context["users"] = User.objects.all()
         return context
-
-
-class ObjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Object
-    success_url = '/'
-
-    def test_func(self):
-        post = self.get_object()
-        if (self.request.user == post.author):
-            return True
-        return False
 
 
 @login_required
@@ -85,7 +75,7 @@ def upload_file_view(request):
             success = upload_file(file, obj.pk)
 
             if success:
-                return JsonResponse({'message': 'File uploaded successfully'}, status=200)
+                return redirect("index")
             else:
                 return JsonResponse({'message': 'Failed to upload file'}, status=500)
         except UnicodeEncodeError as e:
@@ -111,6 +101,7 @@ def update_permissions(request, pk):
         print(users)
         obj.permitted_users.set(users)
         obj.save()
+        print("Success")
         return redirect("index")
 
     return redirect("index")
@@ -133,3 +124,20 @@ def delete_file_view(request):
             return JsonResponse({'message': 'Failed to delete file'}, status=500)
     else:
         return JsonResponse({'error': 'POST method required'}, status=400)
+
+
+@login_required
+def delete_object(request, pk):
+    obj = get_object_or_404(Object, pk=pk)
+    if obj.owner != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this file.")
+    
+    S3ResourceSingleton()
+    try:
+        success = delete_file(obj.id)
+
+    except boto3.exceptions.S3UploadFailedError:
+        return HttpResponse("Failed to delete the file from S3", status=500)
+
+    obj.delete()
+    return redirect('index')
