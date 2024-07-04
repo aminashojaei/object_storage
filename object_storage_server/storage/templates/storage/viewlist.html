@@ -51,7 +51,7 @@
       class="d-flex flex-column col-3 justify-content-start"
       style="position: relative"
     >
-      <div class="popup d-flex">
+      <div id="last" class="popup d-flex">
         <!--پاپ آپ برای دانلود و شیر -->
         <div class="popup-item">
           <h4 class="medium mb-3 mt-1" style="font-size: larger">
@@ -106,10 +106,17 @@
               <p>10 Oct</p>
             </div>
           </div>
-          <button class="popup-btn">
+          <button onclick="fu()" class="popup-btn">
             <img src="{% static 'storage/images/hambergur-popup.svg' %}" alt="" />
           </button>
         </div>
+        <script>
+          function fu()
+          {
+            document.getElementById('last').style.opacity = 1;
+            document.getElementById('last').style.pointerEvents = "all";
+          }
+        </script>
         <!-- <div class="whole_object_container"></div>
             <div class="whole_object_container"></div>
             <div class="whole_object_container"></div>

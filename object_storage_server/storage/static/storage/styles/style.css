@@ -434,6 +434,7 @@ p.file-name {
   align-items: center;
   position: absolute;
   opacity: 0;
+  pointer-events: none;
 }
 .popup .popup-item{
   width: 88%;
