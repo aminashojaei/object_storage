@@ -117,20 +117,30 @@ def update_permissions(request, pk):
     return redirect("index")
 
 
+from django.contrib import messages
+
+def delete_file_view(request):
     S3ResourceSingleton()
 
     if request.method == 'POST':
         object_id = request.POST.get('object_id')
         if not object_id:
-            return JsonResponse({'error': 'Object ID is required'}, status=400)
+            messages.error(request, 'Object ID is required')
+            return redirect('delete_file')
 
         success = delete_file(object_id)
 
         if success:
             Object.objects.filter(id=object_id).delete()
-            return JsonResponse({'message': 'File deleted successfully'}, status=200)
+            messages.success(request, 'File deleted successfully')
         else:
-            return JsonResponse({'message': 'Failed to delete file'}, status=500)
-  
+            messages.error(request, 'Failed to delete file')
+
+        return redirect('delete_file')
     else:
-        return render(request, 'storage/delete_file.html')
+        messages.error(request, 'POST method required')
+        return redirect('delete_file')
+
+  
+    # else:
+    #     return render(request, 'storage/delete_file.html')

@@ -111,7 +111,7 @@
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#myModal"
-            href="{% url 'update_permissions' object.id %}"
+            {% comment %} href="{% url 'update_permissions' object.id %}" {% endcomment %}
           >
             باز کردن مدال
           </button>
