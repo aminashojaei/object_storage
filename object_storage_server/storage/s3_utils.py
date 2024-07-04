@@ -131,7 +131,12 @@ def delete_file(object_id):
         bucket = s3_resource.Bucket(BUCKET_NAME)
         object = bucket.Object(object_id)
 
-        response = object.delete()
+        print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
+        print(object_id)
+        print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
+        response = object.delete(
+            # VersionId='string',
+        )
         print(response)
         return True
     except ClientError as e:

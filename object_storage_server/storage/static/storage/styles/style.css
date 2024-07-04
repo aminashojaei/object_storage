@@ -284,6 +284,10 @@ div.go_login{
   width: 95%;
   align-self: center;
   margin-bottom: 1.5%;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
 }
 .data_information {
   width: 95%;
@@ -494,4 +498,25 @@ p.file-name {
   padding-bottom: 10px;
   width: 100%;
 }
+/* styles.css */
+.xcontainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.xrow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.xcol {
+  flex: 1 0 23%; /* 4 columns in a row with some spacing */
+  max-width: 23%;
+  margin-right: 2%;
+}
+
+
+
 
