@@ -1,17 +1,12 @@
-# object_storage_server/run_function.py
+# run_function.py
 
 import importlib
-import sys
 import argparse
-from storage import s3_utils
 
 def run_function(module_name, function_name):
     try:
-        # وارد کردن ماژول
         module = importlib.import_module(module_name)
-        # گرفتن تابع از ماژول
         func = getattr(module, function_name)
-        # اجرای تابع
         func()
     except AttributeError:
         print(f"Function '{function_name}' not found in module '{module_name}'")

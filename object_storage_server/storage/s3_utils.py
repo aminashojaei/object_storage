@@ -5,6 +5,10 @@ from django.conf import settings
 
 logging.basicConfig(level=logging.INFO)
 
+BUCKET_NAME = 'webdev'
+AWS_ACCESS_KEY_ID = 'cad70d91-4a59-41df-93e4-0013e5b5a6e6'
+AWS_SECRET_ACCESS_KEY = 'be7021a93bbee56063b1bca7b2bba8faefacdeef780b270642eec622357a7a69'
+AWS_ENDPOINT_URL='https://s3.ir-thr-at1.arvanstorage.ir'
 
 class S3ResourceSingleton:
     _instance = None
@@ -18,9 +22,12 @@ class S3ResourceSingleton:
     def __init__(self):
         if self._initialized:
             return
-        self.endpoint_url = settings.AWS_ENDPOINT_URL
-        self.aws_access_key_id = settings.AWS_ACCESS_KEY_ID
-        self.aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+        
+     
+            
+        self.endpoint_url = AWS_ENDPOINT_URL
+        self.aws_access_key_id = AWS_ACCESS_KEY_ID
+        self.aws_secret_access_key = AWS_SECRET_ACCESS_KEY
         try:
             self.s3_resource = boto3.resource(
                 's3',
@@ -59,7 +66,7 @@ def upload_file(file, object_name):
         return False
 
     try:
-        bucket = s3_resource.Bucket(settings.BUCKET_NAME)
+        bucket = s3_resource.Bucket(BUCKET_NAME)
 
         bucket.put_object(
             ACL='public-read',
@@ -80,7 +87,7 @@ def objects_list():
         return None
 
     try:
-        bucket = s3_resource.Bucket(settings.BUCKET_NAME)
+        bucket = s3_resource.Bucket(BUCKET_NAME)
         object_keys = []
         for obj in bucket.objects.all():
             logging.info(f"object_name: {obj.key}, last_modified: {obj.last_modified}")
@@ -100,7 +107,7 @@ def download_file(download_path, object_name):
         return False
     try:
         # bucket
-        bucket = s3_resource.Bucket(settings.BUCKET_NAME)
+        bucket = s3_resource.Bucket(BUCKET_NAME)
 
         object_name = object_name
         download_path = download_path
@@ -121,7 +128,7 @@ def delete_file(object_id):
     if s3_resource is None:
         return False
     try:
-        bucket = s3_resource.Bucket(settings.BUCKET_NAME)
+        bucket = s3_resource.Bucket(BUCKET_NAME)
         object = bucket.Object(object_id)
 
         response = object.delete(
